@@ -1,0 +1,12 @@
+{
+    "width" : 500,
+    "resize_width" : true,
+    "heigth" : 500,
+    "resize_heigth" : false,
+
+    "format" : "jpg",
+    "reformat" : false,
+
+    "quality" : "",
+    "change_quality" : false
+}
