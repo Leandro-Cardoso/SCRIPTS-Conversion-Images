@@ -1,15 +1,18 @@
+from models import Image
+
 import json
 import os
 import re
 
-def images(files: list, image_extensions: list) -> dict:
-    '''Return only images in a list of files'''
-    images = {}
+# CREATE IMAGE LIST:
+def create_image_list(root: str, files: list, image_extensions: list) -> list:
+    '''Create images list'''
+    images = []
     for file in files:
-        file = file.lower()
         for extension in image_extensions:
-            if extension in file:
-                images.update({file : extension})
+            if extension in file.lower():
+                images.append(Image(root = root, file = file))
+                break
     return images
 
 # LOAD CONFIGs:
@@ -18,12 +21,18 @@ with open(config_file_path) as config_file:
     configs = json.load(config_file)
     config_file.close()
 
-# Verify path:
-if os.path.exists(configs['images_path']):
-    # Create file list:
-    files = os.listdir(configs['images_path'])
-    # Create dict {file : extension} with all images
-    image_files = images(files, configs['image_extensions'])
-    print(image_files)
+# VERIFY PATH:
+if os.path.exists(configs['root']):
+
+    # CREATE FILE LIST:
+    files = os.listdir(configs['root'])
+
+    # CREATE IMAGE LIST:
+    images = create_image_list(root = configs['root'], files = files, image_extensions = configs['image_extensions'])
+
+    # TESTs:
+    for image in images:
+        print(image.name, image.extension)
+
 else:
     print("This path doesn't exist...")

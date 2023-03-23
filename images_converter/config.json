@@ -1,5 +1,5 @@
 {
-    "images_path" : "./images_converter/images",
+    "root" : "./images_converter/images",
     
     "width" : 500,
     "resize_width" : true,
